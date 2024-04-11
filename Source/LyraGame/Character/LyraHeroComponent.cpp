@@ -37,6 +37,7 @@ namespace LyraHero
 
 const FName ULyraHeroComponent::NAME_BindInputsNow("BindInputsNow");
 const FName ULyraHeroComponent::NAME_ActorFeatureName("Hero");
+DEFINE_LOG_CATEGORY_STATIC(LogLyraHeroComponent, Log, All);
 
 ULyraHeroComponent::ULyraHeroComponent(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
