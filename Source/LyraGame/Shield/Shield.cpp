@@ -51,7 +51,7 @@ void AShield::SetTimerForEvent()
 	TimerManager.SetTimer(OnShieldEndedDurationTimerHandle, [this]
 	{
 		UE_LOG(LogShield, Log, TEXT("Shield ended"))
-		// OnShieldEndedDuration();
+		OnShieldEndedDuration();
 		OnShieldEndedDurationTimerHandle.Invalidate();
 	}, ShieldDuration, false);
 }
