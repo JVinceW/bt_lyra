@@ -33,6 +33,12 @@ protected:
 	UPROPERTY(EditAnywhere, Category=Shield, BlueprintReadWrite)
 	float ShieldDuration;
 
+	UPROPERTY(EditAnywhere, Category=Equipment)
+	FName AttachSocket;
+
+	UPROPERTY(EditAnywhere, Category=Equipment)
+	FTransform AttachTransform;
+
 	// Subroutines //
 	// =========== //
 	UFUNCTION(BlueprintNativeEvent)
@@ -55,4 +61,5 @@ private:
 	// Subroutines //
 	// =========== //
 	void SetTimerForEvent();
+	void AdjustShieldTransform();
 };

@@ -17,6 +17,7 @@ class FLifetimeProperty;
 class UClass;
 class USceneComponent;
 
+DEFINE_LOG_CATEGORY_STATIC(LogLyraEquipmentInstance, Log, All);
 ULyraEquipmentInstance::ULyraEquipmentInstance(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
@@ -75,6 +76,7 @@ void ULyraEquipmentInstance::SpawnEquipmentActors(const TArray<FLyraEquipmentAct
 	if (APawn* OwningPawn = GetPawn())
 	{
 		USceneComponent* AttachTarget = OwningPawn->GetRootComponent();
+		UE_LOG(LogLyraEquipmentInstance, Log, TEXT("Attach target owning pawn: %s"), *OwningPawn->GetName());
 		if (ACharacter* Char = Cast<ACharacter>(OwningPawn))
 		{
 			AttachTarget = Char->GetMesh();
