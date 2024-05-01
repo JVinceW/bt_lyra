@@ -59,29 +59,19 @@ void AShield::SetTimerForEvent()
 
 void AShield::AdjustShieldTransform()
 {
-	if (Owner != nullptr)
+	if (APawn* AbilityInstigator = GetInstigator(); AbilityInstigator != nullptr)
 	{
-		auto OwnerName = Owner->GetName();
-		UE_LOG(LogShield, Log, TEXT("Owner name: %s"), *OwnerName);
+		UE_LOG(LogShield, Log, TEXT("Owner Pawn name: %s"), *AbilityInstigator->GetName());
+		USceneComponent* AttachTarget = AbilityInstigator->GetRootComponent();
+		UE_LOG(LogShield, Log, TEXT("Attach target owning pawn: %s"), *AbilityInstigator->GetName());
+		if (const ACharacter* Char = Cast<ACharacter>(AbilityInstigator))
+		{
+			AttachTarget = Char->GetMesh();
+		}
+		this->FinishSpawning(FTransform::Identity, /*bIsDefaultTransform=*/ true);
+		this->SetActorRelativeTransform(AttachTransform);
+		FAttachmentTransformRules Rule = FAttachmentTransformRules{EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepRelative, false}; 
+		// this->AttachToComponent(AttachTarget, FAttachmentTransformRules::KeepRelativeTransform, AttachSocket);
+		this->AttachToComponent(AttachTarget, Rule, AttachSocket);
 	}
-	UE_LOG(LogShield, Log, TEXT("Shield owner is null? %d" ), Owner == nullptr);
-	// if (APawn* OwningPawn = GetPawn())
-	// {
-	// 	USceneComponent* AttachTarget = OwningPawn->GetRootComponent();
-	// 	UE_LOG(LogLyraEquipmentInstance, Log, TEXT("Attach target owning pawn: %s"), *OwningPawn->GetName());
-	// 	if (ACharacter* Char = Cast<ACharacter>(OwningPawn))
-	// 	{
-	// 		AttachTarget = Char->GetMesh();
-	// 	}
-	//
-	// 	for (const FLyraEquipmentActorToSpawn& SpawnInfo : ActorsToSpawn)
-	// 	{
-	// 		AActor* NewActor = GetWorld()->SpawnActorDeferred<AActor>(SpawnInfo.ActorToSpawn, FTransform::Identity, OwningPawn);
-	// 		NewActor->FinishSpawning(FTransform::Identity, /*bIsDefaultTransform=*/ true);
-	// 		NewActor->SetActorRelativeTransform(SpawnInfo.AttachTransform);
-	// 		NewActor->AttachToComponent(AttachTarget, FAttachmentTransformRules::KeepRelativeTransform, SpawnInfo.AttachSocket);
-	//
-	// 		SpawnedActors.Add(NewActor);
-	// 	}
-	// }
 }
