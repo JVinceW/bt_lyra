@@ -68,8 +68,10 @@ void AShield::AdjustShieldTransform()
 		}
 		this->FinishSpawning(FTransform::Identity, /*bIsDefaultTransform=*/ true);
 		this->SetActorRelativeTransform(AttachTransform);
-		FAttachmentTransformRules Rule = FAttachmentTransformRules{EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepRelative, false}; 
-		// this->AttachToComponent(AttachTarget, FAttachmentTransformRules::KeepRelativeTransform, AttachSocket);
+
+		const FAttachmentTransformRules Rule = FAttachmentTransformRules{
+			EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepRelative, false
+		};
 		this->AttachToComponent(AttachTarget, Rule, AttachSocket);
 	}
 }
