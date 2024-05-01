@@ -61,9 +61,7 @@ void AShield::AdjustShieldTransform()
 {
 	if (APawn* AbilityInstigator = GetInstigator(); AbilityInstigator != nullptr)
 	{
-		UE_LOG(LogShield, Log, TEXT("Owner Pawn name: %s"), *AbilityInstigator->GetName());
 		USceneComponent* AttachTarget = AbilityInstigator->GetRootComponent();
-		UE_LOG(LogShield, Log, TEXT("Attach target owning pawn: %s"), *AbilityInstigator->GetName());
 		if (const ACharacter* Char = Cast<ACharacter>(AbilityInstigator))
 		{
 			AttachTarget = Char->GetMesh();
